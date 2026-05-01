@@ -10,10 +10,10 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   body {
-    background: #080608;
+    background: #05060f;
     min-height: 100vh;
     font-family: 'Rajdhani', sans-serif;
-    color: #e8d5c4;
+    color: #e8ddf5;
     overflow: hidden;
   }
 
@@ -50,9 +50,9 @@
   .slide-overlay {
     position: absolute; inset: 0;
     background: linear-gradient(
-      to right, transparent 55%, #080608 100%
+      to right, transparent 55%, #05060f 100%
     ), linear-gradient(
-      to bottom, rgba(8,6,8,0.3) 0%, transparent 20%, transparent 80%, rgba(8,6,8,0.7) 100%
+      to bottom, rgba(5,6,15,0.3) 0%, transparent 20%, transparent 80%, rgba(5,6,15,0.7) 100%
     );
   }
 
@@ -63,12 +63,12 @@
   }
   .dot {
     width: 20px; height: 2px;
-    background: rgba(232,213,196,0.25);
+    background: rgba(200,180,240,0.2);
     transition: all 0.4s ease;
   }
   .dot.active {
     width: 36px;
-    background: #c9a882;
+    background: #c054e8;
   }
 
   .photo-label {
@@ -78,7 +78,7 @@
     font-style: italic;
     font-size: 0.85rem;
     letter-spacing: 0.15em;
-    color: rgba(232,213,196,0.5);
+    color: rgba(200,180,240,0.45);
     text-transform: uppercase;
   }
 
@@ -97,7 +97,7 @@
     justify-content: center;
     padding: 3rem 3rem 3rem 2.5rem;
     position: relative;
-    background: linear-gradient(135deg, #0f0b10 0%, #080608 60%);
+    background: linear-gradient(135deg, #0a0718 0%, #05060f 60%);
   }
 
   .right::before {
@@ -105,20 +105,20 @@
     position: absolute;
     left: 0; top: 10%; bottom: 10%;
     width: 1px;
-    background: linear-gradient(to bottom, transparent, rgba(180,130,90,0.4) 30%, rgba(180,130,90,0.6) 50%, rgba(180,130,90,0.4) 70%, transparent);
+    background: linear-gradient(to bottom, transparent, rgba(180,60,220,0.4) 30%, rgba(220,60,120,0.6) 50%, rgba(180,60,220,0.4) 70%, transparent);
   }
 
   .age-badge {
     display: inline-flex;
     align-items: center;
     gap: 8px;
-    border: 1px solid rgba(201,168,130,0.35);
+    border: 1px solid rgba(192,84,232,0.35);
     padding: 5px 14px;
     border-radius: 2px;
     font-size: 0.72rem;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: #c9a882;
+    color: #c054e8;
     margin-bottom: 2rem;
     width: fit-content;
   }
@@ -133,21 +133,21 @@
     font-size: 3.4rem;
     font-weight: 300;
     line-height: 1.05;
-    color: #f2e8de;
+    color: #f0eaff;
     margin-bottom: 0.3rem;
     letter-spacing: -0.01em;
   }
 
   .headline em {
     font-style: italic;
-    color: #c9a882;
+    color: #e040a0;
   }
 
   .tagline {
     font-family: 'Cormorant Garamond', serif;
     font-style: italic;
     font-size: 1.1rem;
-    color: rgba(232,213,196,0.5);
+    color: rgba(200,180,240,0.5);
     margin-bottom: 2rem;
     letter-spacing: 0.04em;
   }
@@ -156,10 +156,10 @@
     display: flex; align-items: center; gap: 12px;
     margin-bottom: 1.8rem;
   }
-  .divider-line { flex: 1; height: 1px; background: rgba(201,168,130,0.2); }
+  .divider-line { flex: 1; height: 1px; background: rgba(192,84,232,0.2); }
   .divider-diamond {
     width: 6px; height: 6px;
-    border: 1px solid rgba(201,168,130,0.5);
+    border: 1px solid rgba(220,60,120,0.6);
     transform: rotate(45deg);
   }
 
@@ -178,16 +178,16 @@
 
   .feat-icon {
     width: 28px; height: 28px;
-    border: 1px solid rgba(201,168,130,0.3);
+    border: 1px solid rgba(192,84,232,0.35);
     display: flex; align-items: center; justify-content: center;
     font-size: 0.85rem;
-    color: #c9a882;
+    color: #c054e8;
     flex-shrink: 0;
     margin-top: 1px;
   }
 
-  .feat-text { font-size: 0.9rem; line-height: 1.5; color: rgba(232,213,196,0.75); letter-spacing: 0.03em; }
-  .feat-text strong { color: #e8d5c4; font-weight: 500; }
+  .feat-text { font-size: 0.9rem; line-height: 1.5; color: rgba(200,180,240,0.7); letter-spacing: 0.03em; }
+  .feat-text strong { color: #e8ddf5; font-weight: 500; }
 
   .stats-row {
     display: flex;
@@ -203,7 +203,7 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 2rem;
     font-weight: 300;
-    color: #c9a882;
+    color: #e040a0;
     line-height: 1;
   }
 
@@ -211,10 +211,10 @@
     font-size: 0.68rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(232,213,196,0.4);
+    color: rgba(200,180,240,0.4);
   }
 
-  .stat-sep { width: 1px; background: rgba(201,168,130,0.15); align-self: stretch; }
+  .stat-sep { width: 1px; background: rgba(192,84,232,0.15); align-self: stretch; }
 
   .cta-area { display: flex; flex-direction: column; gap: 0.8rem; }
 
@@ -222,7 +222,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(90deg, #c9a882, #a87d55);
+    background: linear-gradient(90deg, #c054e8, #e040a0);
     border: none;
     padding: 0.9rem 1.5rem;
     cursor: pointer;
@@ -231,7 +231,7 @@
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: #0f0b10;
+    color: #f0eaff;
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -251,7 +251,7 @@
     align-items: center;
     justify-content: space-between;
     background: transparent;
-    border: 1px solid rgba(201,168,130,0.35);
+    border: 1px solid rgba(192,84,232,0.35);
     padding: 0.9rem 1.5rem;
     cursor: pointer;
     font-family: 'Rajdhani', sans-serif;
@@ -259,15 +259,15 @@
     font-weight: 500;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: rgba(232,213,196,0.6);
+    color: rgba(200,180,240,0.6);
     transition: all 0.3s ease;
     text-decoration: none;
   }
 
   .btn-preview:hover {
-    border-color: rgba(201,168,130,0.65);
-    color: #e8d5c4;
-    background: rgba(201,168,130,0.05);
+    border-color: rgba(192,84,232,0.65);
+    color: #e8ddf5;
+    background: rgba(192,84,232,0.07);
   }
 
   .btn-preview::after { content: '↗'; }
@@ -285,7 +285,7 @@
     position: absolute;
     width: 300px; height: 300px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(180,120,70,0.08) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(192,84,232,0.1) 0%, transparent 70%);
     top: -80px; right: -60px;
     pointer-events: none;
     animation: orbPulse 5s ease-in-out infinite;
@@ -303,9 +303,9 @@
   }
 
   @keyframes ringPulse {
-    0% { box-shadow: 0 0 0 0 rgba(201,168,130,0.4); }
-    70% { box-shadow: 0 0 0 10px rgba(201,168,130,0); }
-    100% { box-shadow: 0 0 0 0 rgba(201,168,130,0); }
+    0% { box-shadow: 0 0 0 0 rgba(192,84,232,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(192,84,232,0); }
+    100% { box-shadow: 0 0 0 0 rgba(192,84,232,0); }
   }
   .btn-join { animation: ringPulse 2.5s infinite; }
 </style>
@@ -319,11 +319,11 @@
     <div class="shield" ondragstart="return false;" oncontextmenu="return false;"></div>
 
     <!-- Replace these background-image URLs with your own photos -->
-    <div class="photo-slide active" style="background: radial-gradient(ellipse at 30% 40%, #5c3a2e 0%, #2a1a2e 40%, #0f0810 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
-    <div class="photo-slide" style="background: radial-gradient(ellipse at 60% 30%, #3a2040 0%, #1a0e20 50%, #080608 100%), url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
-    <div class="photo-slide" style="background: radial-gradient(ellipse at 40% 60%, #2e1a10 0%, #1e1030 50%, #080608 100%), url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
-    <div class="photo-slide" style="background: radial-gradient(ellipse at 50% 40%, #40203a 0%, #1a0e18 50%, #080608 100%), url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
-    <div class="photo-slide" style="background: radial-gradient(ellipse at 35% 50%, #301828 0%, #180e22 50%, #080608 100%), url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide active" style="background: radial-gradient(ellipse at 30% 40%, #3a1060 0%, #1a0830 40%, #05060f 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 60% 30%, #60103a 0%, #300820 50%, #05060f 100%), url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 40% 60%, #200a50 0%, #100530 50%, #05060f 100%), url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 50% 40%, #501040 0%, #280820 50%, #05060f 100%), url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 35% 50%, #1a0848 0%, #0e0528 50%, #05060f 100%), url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
 
     <div class="slide-overlay"></div>
     <div class="photo-label">Members Preview</div>
