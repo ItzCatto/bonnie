@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members Only</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Rajdhani:wght@300;400;500;600&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #080608;
+    min-height: 100vh;
+    font-family: 'Rajdhani', sans-serif;
+    color: #e8d5c4;
+    overflow: hidden;
+  }
+
+  .noise {
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0;
+  }
+
+  .layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* LEFT PANEL */
+  .left {
+    flex: 0 0 52%;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .photo-slide {
+    position: absolute; inset: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease;
+    background-size: cover;
+    background-position: center;
+  }
+  .photo-slide.active { opacity: 1; }
+
+  .slide-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+      to right, transparent 55%, #080608 100%
+    ), linear-gradient(
+      to bottom, rgba(8,6,8,0.3) 0%, transparent 20%, transparent 80%, rgba(8,6,8,0.7) 100%
+    );
+  }
+
+  .counter {
+    position: absolute;
+    bottom: 2rem; left: 2rem;
+    display: flex; gap: 6px; align-items: center;
+  }
+  .dot {
+    width: 20px; height: 2px;
+    background: rgba(232,213,196,0.25);
+    transition: all 0.4s ease;
+  }
+  .dot.active {
+    width: 36px;
+    background: #c9a882;
+  }
+
+  .photo-label {
+    position: absolute;
+    top: 2rem; left: 2rem;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    color: rgba(232,213,196,0.5);
+    text-transform: uppercase;
+  }
+
+  .shield {
+    position: absolute; inset: 0;
+    z-index: 10;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  /* RIGHT PANEL */
+  .right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 3rem 3rem 3rem 2.5rem;
+    position: relative;
+    background: linear-gradient(135deg, #0f0b10 0%, #080608 60%);
+  }
+
+  .right::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 10%; bottom: 10%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(180,130,90,0.4) 30%, rgba(180,130,90,0.6) 50%, rgba(180,130,90,0.4) 70%, transparent);
+  }
+
+  .age-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid rgba(201,168,130,0.35);
+    padding: 5px 14px;
+    border-radius: 2px;
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a882;
+    margin-bottom: 2rem;
+    width: fit-content;
+  }
+
+  .age-badge::before {
+    content: '⊗';
+    font-size: 0.9rem;
+  }
+
+  .headline {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.4rem;
+    font-weight: 300;
+    line-height: 1.05;
+    color: #f2e8de;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+
+  .headline em {
+    font-style: italic;
+    color: #c9a882;
+  }
+
+  .tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: rgba(232,213,196,0.5);
+    margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+  }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 1.8rem;
+  }
+  .divider-line { flex: 1; height: 1px; background: rgba(201,168,130,0.2); }
+  .divider-diamond {
+    width: 6px; height: 6px;
+    border: 1px solid rgba(201,168,130,0.5);
+    transform: rotate(45deg);
+  }
+
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .feature {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .feat-icon {
+    width: 28px; height: 28px;
+    border: 1px solid rgba(201,168,130,0.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.85rem;
+    color: #c9a882;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .feat-text { font-size: 0.9rem; line-height: 1.5; color: rgba(232,213,196,0.75); letter-spacing: 0.03em; }
+  .feat-text strong { color: #e8d5c4; font-weight: 500; }
+
+  .stats-row {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .stat {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #c9a882;
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(232,213,196,0.4);
+  }
+
+  .stat-sep { width: 1px; background: rgba(201,168,130,0.15); align-self: stretch; }
+
+  .cta-area { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .btn-join {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(90deg, #c9a882, #a87d55);
+    border: none;
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #0f0b10;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .btn-join:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-join:active { transform: translateY(0); }
+
+  .btn-join::after {
+    content: '→';
+    font-size: 1.1rem;
+  }
+
+  .btn-preview {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: transparent;
+    border: 1px solid rgba(201,168,130,0.35);
+    padding: 0.9rem 1.5rem;
+    cursor: pointer;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(232,213,196,0.6);
+    transition: all 0.3s ease;
+    text-decoration: none;
+  }
+
+  .btn-preview:hover {
+    border-color: rgba(201,168,130,0.65);
+    color: #e8d5c4;
+    background: rgba(201,168,130,0.05);
+  }
+
+  .btn-preview::after { content: '↗'; }
+
+  .disclaimer {
+    margin-top: 1.2rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: rgba(232,213,196,0.25);
+    text-transform: uppercase;
+    line-height: 1.6;
+  }
+
+  .glow-orb {
+    position: absolute;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(180,120,70,0.08) 0%, transparent 70%);
+    top: -80px; right: -60px;
+    pointer-events: none;
+    animation: orbPulse 5s ease-in-out infinite;
+  }
+
+  @keyframes orbPulse {
+    0%, 100% { opacity: 0.6; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.15); }
+  }
+
+  .discord-logo {
+    display: inline-block;
+    margin-right: 6px;
+    vertical-align: middle;
+  }
+
+  @keyframes ringPulse {
+    0% { box-shadow: 0 0 0 0 rgba(201,168,130,0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(201,168,130,0); }
+    100% { box-shadow: 0 0 0 0 rgba(201,168,130,0); }
+  }
+  .btn-join { animation: ringPulse 2.5s infinite; }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+<div class="layout">
+
+  <!-- LEFT: Photo Carousel -->
+  <div class="left">
+    <div class="shield" ondragstart="return false;" oncontextmenu="return false;"></div>
+
+    <!-- Replace these background-image URLs with your own photos -->
+    <div class="photo-slide active" style="background: radial-gradient(ellipse at 30% 40%, #5c3a2e 0%, #2a1a2e 40%, #0f0810 100%), url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 60% 30%, #3a2040 0%, #1a0e20 50%, #080608 100%), url('https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 40% 60%, #2e1a10 0%, #1e1030 50%, #080608 100%), url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 50% 40%, #40203a 0%, #1a0e18 50%, #080608 100%), url('https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+    <div class="photo-slide" style="background: radial-gradient(ellipse at 35% 50%, #301828 0%, #180e22 50%, #080608 100%), url('https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?w=900&q=80&fit=crop') center/cover; background-blend-mode: multiply;"></div>
+
+    <div class="slide-overlay"></div>
+    <div class="photo-label">Members Preview</div>
+    <div class="counter" id="dots"></div>
+  </div>
+
+  <!-- RIGHT: Promo -->
+  <div class="right">
+    <div class="glow-orb"></div>
+
+    <div class="headline">
+      Where <em>desire</em><br>has no limits.
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-diamond"></div>
+      <div class="divider-line"></div>
+    </div>
+
+    <div class="features">
+      <div class="feature">
+        <div class="feat-icon">✦</div>
+        <div class="feat-text"><strong>Private Channels</strong> — curated rooms for every taste, unlocked by verified members only.</div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">◈</div>
+        <div class="feat-text"><strong>Daily Exclusives</strong> — fresh content drops every 24 hours, only for those inside.</div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">⬡</div>
+        <div class="feat-text"><strong>Live Events</strong> — real-time streams, AMAs, and private sessions with creators.</div>
+      </div>
+      <div class="feature">
+        <div class="feat-icon">◉</div>
+        <div class="feat-text"><strong>Anonymous &amp; Secure</strong> — discreet verification, zero exposure.</div>
+      </div>
+    </div>
+
+
+    <div class="cta-area">
+      <!-- Replace # with your Discord invite link -->
+      <a href="#" class="btn-join">
+        <span>
+          <svg class="discord-logo" width="18" height="14" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M60.1 4.9A58.5 58.5 0 0 0 45.6.7a40 40 0 0 0-1.8 3.7 54.2 54.2 0 0 0-16.3 0A39 39 0 0 0 25.7.7 58.4 58.4 0 0 0 11.1 5C1.6 19.3-1 33.2.3 46.9a58.9 58.9 0 0 0 18 9.1 43 43 0 0 0 3.7-6.1 38.3 38.3 0 0 1-5.8-2.8l1.4-1.1a41.8 41.8 0 0 0 35.9 0l1.4 1.1a38.2 38.2 0 0 1-5.9 2.8 43 43 0 0 0 3.7 6.1 58.7 58.7 0 0 0 18-9.1C72.3 30.9 68 17.2 60.1 4.9ZM23.7 38.4c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Zm23.6 0c-3.5 0-6.4-3.2-6.4-7.2s2.8-7.2 6.4-7.2 6.5 3.2 6.4 7.2c0 4-2.8 7.2-6.4 7.2Z" fill="#0f0b10"/></svg>
+          Join the Server
+        </span>
+      </a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.photo-slide');
+  const dotsEl = document.getElementById('dots');
+  let current = 0;
+
+  slides.forEach((_, i) => {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 0 ? ' active' : '');
+    dotsEl.appendChild(d);
+  });
+
+  function nextSlide() {
+    slides[current].classList.remove('active');
+    dotsEl.children[current].classList.remove('active');
+    current = (current + 1) % slides.length;
+    slides[current].classList.add('active');
+    dotsEl.children[current].classList.add('active');
+  }
+
+  setInterval(nextSlide, 4000);
+
+  document.addEventListener('contextmenu', e => {
+    if (e.target.closest('.left')) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => {
+    if (e.target.closest('.left')) e.preventDefault();
+  });
+</script>
+</body>
+</html>
